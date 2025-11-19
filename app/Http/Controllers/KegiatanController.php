@@ -11,12 +11,12 @@ class KegiatanController extends Controller
 {
     public function kegiatan()
     {
-        $kegiatans = Kegiatan::with(['siswa'])->get();
+        $kegiatans = Kegiatan::with(['siswa'])->ordeBy('tanggal', 'desc')->get();
         return view('admin.kegiatan.kegiatan', compact('kegiatans'));
     }
     public function index()
     {
-        $kegiatans = Kegiatan::where('id_siswa', Auth::user()->siswa->id)->get();
+        $kegiatans = Kegiatan::where('id_siswa', Auth::user()->siswa->id)->orderBy('tanggal', 'desc')->get();
         return view('siswa.kegiatan.index', compact('kegiatans'));
     }
     public function create()

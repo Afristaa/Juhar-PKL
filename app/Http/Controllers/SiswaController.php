@@ -117,8 +117,17 @@ class SiswaController extends Controller
 
     public function destroy(Siswa $siswa)
     {
-
+        
         $user = User::find($siswa->id_user); //
+        $kegiatans = Kegiatan::where('id_siswa', $siswa->id)->get(); // id_siswa itu id dari si siswa
+        foreach ($kegiatans as $kegiatan) {
+            if ($kegiatan->dokumentasi) {
+                Storage::disk('public')->delete($kegiatan->dokumentasi);
+            }   
+        }
+        if ( $siswa->foto) {
+         Storage::disk('public')->delete($siswa->foto); 
+        }
         $user->delete();
         $siswa->delete();
         return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil dihapus.');
@@ -187,7 +196,7 @@ class SiswaController extends Controller
             abort('403', 'Anda tidak memiliki akses untuk melihat kegiatan siswa ini');
         }
         $siswa = Siswa::findOrFail($id); // ini id siswa yg untuk menentukan siswa yang mana
-        $kegiatans = Kegiatan::where('id_siswa', $id)->get();
+        $kegiatans = Kegiatan::where('id_siswa', $id)->orderBy('tanggal', 'desc')->get();
         return view('pembimbing.siswa.kegiatan', compact('kegiatans', 'siswa'));
     }
     public function siswaKegiatanUpdate(Request $request, $id)
@@ -210,7 +219,7 @@ class SiswaController extends Controller
             abort('403', 'Anda tidak memiliki akses untuk melihat kegiatan siswa ini');
         }
         $siswa = Siswa::findOrFail($id); // ini id siswa yg untuk menentukan siswa yang mana
-        $absensis = Absensi::where('id_siswa', $id)->get();
+        $absensis = Absensi::where('id_siswa', $id)->orderBy('tanggal', 'desc')->get();
         return view('pembimbing.siswa.absensi', compact('absensis', 'siswa'));
     }
     

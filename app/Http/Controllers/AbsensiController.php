@@ -14,14 +14,14 @@ class AbsensiController extends Controller
     public function absensi()
     {
         // Ambil data siswa absensi dari siswa yang login, ini di admin
-        $absensis = Absensi::with(['siswa'])->get();
+        $absensis = Absensi::with(['siswa'])->orderBy('tanggal', 'desc')->get();
         return view('admin.absensi.absensi', compact('absensis'));
     }
 
     public function index()
     {
         // Ambil data siswa absensi dari siswa yang login
-        $absensis = Absensi::where('id_siswa', Auth::user()->siswa->id)->get();
+        $absensis = Absensi::where('id_siswa', Auth::user()->siswa->id)->orderBy('tanggal', 'desc')->get();
         return view('siswa.absensi.index', compact('absensis'));
     }
 

@@ -32,6 +32,7 @@
                     @foreach($kegiatans as $kegiatan)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $kegiatan->siswa->user->name }}</td>
                         <td>{{ $kegiatan->tanggal }}</td>
                         <td>{{ $kegiatan->jam_mulai }}</td>
                         <td>{{ $kegiatan->jam_selesai }}</td>

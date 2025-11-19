@@ -36,7 +36,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
-                                <input type="text" name="keterangan" id="keterangan" class="form-control" disabled>
+                                <input type="text" name="keterangan" id="keterangan" class="form-control" disabled> <!-- keterangan ini disabled biar gabisa di isi apabila statusnya hadir-->
                             </div>
                         </div>
                         <div class="col-3">
